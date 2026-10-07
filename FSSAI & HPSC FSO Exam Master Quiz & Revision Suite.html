@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#090d16">
+    <title>FSS Act, 2006 | HPSC FSO Master Workbook & Exam Simulator</title>
+    <style>
+        :root {
+            --bg: #090d16;
+            --surface: #121826;
+            --surface-elevated: #1a2235;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(255, 255, 255, 0.16);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-sub: #64748b;
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.2);
+            --accent: #818cf8;
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.2);
+            --danger: #f43f5e;
+            --danger-glow: rgba(244, 63, 94, 0.2);
+            --warning: #f59e0b;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-elevated: #f1f5f9;
+            --border: rgba(15, 23, 42, 0.08);
+            --border-strong: rgba(15, 23, 42, 0.16);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-sub: #94a3b8;
+            --primary: #0284c7;
+            --primary-glow: rgba(2, 132, 199, 0.15);
+            --accent: #6366f1;
+            --success: #059669;
+            --success-glow: rgba(5, 150, 105, 0.15);
+            --danger: #e11d48;
+            --danger-glow: rgba(225, 29, 72, 0.15);
+            --warning: #d97706;
+            --shadow-subtle: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.5;
+            transition: background-color 0.25s ease, color 0.25s ease;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Responsive Layout */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 10px var(--primary-glow);
+        }
+
+        .brand-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-subtitle {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+
+        .btn-icon:hover {
+            border-color: var(--border-strong);
+            transform: translateY(-1px);
+        }
+
+        .main-container {
+            flex: 1;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 16px 20px 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Navigation Tabs / Control Bar */
+        .controls-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .segmented-nav {
+            display: flex;
+            background: var(--surface-elevated);
+            padding: 3px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .segment-btn {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            padding: 7px 14px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+
+        .segment-btn.active {
+            background: var(--surface);
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Pill Filters */
+        .filter-row {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 2px;
+            width: 100%;
+        }
+
+        .pill-btn {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .pill-btn.active {
+            background: var(--primary-glow);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Question Screen Card */
+        .quiz-panel {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        @media (max-width: 860px) {
+            .quiz-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .q-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-subtle);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: relative;
+        }
+
+        .q-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 14px;
+        }
+
+        .q-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .tag-mcq { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+        .tag-ar { background: rgba(129, 140, 248, 0.15); color: #818cf8; }
+        .tag-match { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+        .tag-case { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .tag-pyq { background: rgba(244, 63, 94, 0.15); color: #f43f5e; }
+
+        .star-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: var(--radius-sm);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .star-toggle-btn.starred {
+            color: #fbbf24;
+            border-color: #fbbf24;
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .q-text {
+            font-size: 1.12rem;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.55;
+            letter-spacing: -0.01em;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-item {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            transition: all 0.15s ease;
+            position: relative;
+        }
+
+        .option-item:hover:not(.locked) {
+            border-color: var(--primary);
+            background: var(--primary-glow);
+        }
+
+        .option-letter {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border-strong);
+            font-weight: 700;
+            font-size: 0.78rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--text-muted);
+        }
+
+        .option-item.selected {
+            border-color: var(--primary);
+            background: var(--primary-glow);
+        }
+        .option-item.selected .option-letter {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .option-item.correct {
+            border-color: var(--success) !important;
+            background: var(--success-glow) !important;
+        }
+        .option-item.correct .option-letter {
+            background: var(--success);
+            color: #ffffff;
+            border-color: var(--success);
+        }
+
+        .option-item.incorrect {
+            border-color: var(--danger) !important;
+            background: var(--danger-glow) !important;
+        }
+        .option-item.incorrect .option-letter {
+            background: var(--danger);
+            color: #ffffff;
+            border-color: var(--danger);
+        }
+
+        /* Explanation Drawer */
+        .explanation-box {
+            background: var(--surface-elevated);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 14px 18px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            animation: fadeIn 0.25s ease-out;
+            margin-top: 6px;
+        }
+
+        .explanation-box.correct { border-left-color: var(--success); }
+        .explanation-box.incorrect { border-left-color: var(--danger); }
+
+        .explanation-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .q-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+            margin-top: 8px;
+        }
+
+        .btn-action-primary {
+            background: var(--primary);
+            color: #04101e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.15s ease;
+        }
+
+        .btn-action-primary:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .btn-action-secondary {
+            background: var(--surface-elevated);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Side Navigator & Palette */
+        .palette-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            box-shadow: var(--shadow-subtle);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: sticky;
+            top: 76px;
+            max-height: calc(100vh - 100px);
+        }
+
+        .palette-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            text-align: center;
+        }
+
+        .palette-stat-box {
+            background: var(--surface-elevated);
+            padding: 8px 4px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+
+        .palette-stat-val {
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        .palette-stat-lbl {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            overflow-y: auto;
+            max-height: 280px;
+            padding: 4px;
+        }
+
+        .palette-btn {
+            aspect-ratio: 1;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--surface-elevated);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.1s ease;
+        }
+
+        .palette-btn.current {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary-glow);
+            color: var(--text-main);
+        }
+
+        .palette-btn.answered {
+            background: var(--primary);
+            color: #04101e;
+            border-color: var(--primary);
+        }
+
+        .palette-btn.correct-eval {
+            background: var(--success);
+            color: #fff;
+            border-color: var(--success);
+        }
+
+        .palette-btn.incorrect-eval {
+            background: var(--danger);
+            color: #fff;
+            border-color: var(--danger);
+        }
+
+        .palette-btn.starred::after {
+            content: '★';
+            position: absolute;
+            top: 1px;
+            right: 2px;
+            font-size: 7px;
+            color: #fbbf24;
+        }
+
+        /* Trap Sheet Drawer / Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: var(--surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 760px;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* Penalty Trap Table */
+        .trap-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .trap-table th {
+            text-align: left;
+            padding: 10px 12px;
+            background: var(--surface-elevated);
+            border-bottom: 2px solid var(--border);
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .trap-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .trap-table tr:hover td {
+            background: var(--surface-elevated);
+        }
+
+        .highlight-chip {
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.78rem;
+            display: inline-block;
+        }
+        .chip-sec { background: rgba(56, 189, 248, 0.15); color: var(--primary); }
+        .chip-pen { background: rgba(244, 63, 94, 0.15); color: var(--danger); }
+
+        .callout-box {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+        .callout-box h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--accent);
+        }
+        .callout-box p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* Scorecard View */
+        .scorecard-view {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .score-hero {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1));
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px 24px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .score-big {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .breakdown-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .progress-bar-wrap {
+            height: 4px;
+            background: var(--surface-elevated);
+            border-radius: 99px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.2s ease;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<header class="app-header">
+    <div class="brand-badge" onclick="App.setView('quiz')">
+        <div class="brand-icon">⚖️</div>
+        <div>
+            <div class="brand-title">FSS Act, 2006 Master Suite</div>
+            <div class="brand-subtitle">HPSC Food Safety Officer • 180 Questions</div>
+        </div>
+    </div>
+    <div class="header-actions">
+        <button class="btn-icon" onclick="App.openTrapSheet()">
+            <span>📑</span>
+            <span style="display: none; @media(min-width:600px){display:inline;}">Trap Sheet</span>
+        </button>
+        <button class="btn-icon" id="theme-btn" onclick="App.toggleTheme()">
+            <span id="theme-icon">🌙</span>
+        </button>
+    </div>
+</header>
+
+<main class="main-container">
+
+    <!-- Top Bar Controls: Modes & Category Filter -->
+    <section class="controls-card">
+        <div class="segmented-nav">
+            <button class="segment-btn active" id="mode-practice" onclick="App.setMode('practice')">📚 Practice Mode</button>
+            <button class="segment-btn" id="mode-exam" onclick="App.setMode('exam')">⏱️ Exam Simulation</button>
+            <button class="segment-btn" id="mode-review" onclick="App.setMode('review')">⭐ Starred / Revision (<span id="starred-count">0</span>)</button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div id="exam-timer-wrap" class="hidden" style="font-weight: 700; font-family: monospace; font-size: 1rem; color: var(--danger); background: var(--surface-elevated); padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                ⏱️ <span id="exam-timer">180:00</span>
+            </div>
+            <button id="submit-exam-btn" class="btn-action-primary hidden" onclick="App.submitExam()">Submit Exam</button>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="filter-row" id="category-filter-row">
+            <button class="pill-btn active" onclick="App.filterCategory('ALL')">All 180 Items</button>
+            <button class="pill-btn" onclick="App.filterCategory('MCQ')">Sections 1-101 (130)</button>
+            <button class="pill-btn" onclick="App.filterCategory('AR')">Assertion-Reason (15)</button>
+            <button class="pill-btn" onclick="App.filterCategory('MATCH')">Match the Following (10)</button>
+            <button class="pill-btn" onclick="App.filterCategory('CASE')">Case-Based Scenarios (15)</button>
+            <button class="pill-btn" onclick="App.filterCategory('PYQ')">Verified PYQs (10)</button>
+        </div>
+    </section>
+
+    <!-- Progress Indicator -->
+    <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-bar" style="width: 1%;"></div>
+    </div>
+
+    <!-- Active Quiz View (Default) -->
+    <div id="quiz-view" class="quiz-panel">
+        
+        <!-- Left: Question Card -->
+        <article class="q-card">
+            <div class="q-header">
+                <div class="q-meta">
+                    <span class="tag-badge tag-mcq" id="q-category-tag">SECTION MCQ</span>
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">
+                        Q <span id="q-num-display">001</span> of <span id="q-total-display">180</span>
+                    </span>
+                    <span id="q-source-tag" style="font-size: 0.72rem; color: var(--text-sub); border: 1px solid var(--border); padding: 1px 6px; border-radius: 4px;">HPSC-STYLE</span>
+                </div>
+                <button class="star-toggle-btn" id="star-btn" onclick="App.toggleStarCurrent()">
+                    <span id="star-icon">☆</span> Mark / Star
+                </button>
+            </div>
+
+            <div class="q-text" id="q-text">Loading question text...</div>
+
+            <div class="options-list" id="options-container">
+                <!-- Injected via JavaScript -->
+            </div>
+
+            <!-- Instant Statutory Explanation (in Practice Mode) -->
+            <div id="explanation-container" class="hidden">
+                <div class="explanation-box" id="explanation-box">
+                    <div class="explanation-title" id="explanation-title">
+                        <span>📖</span> Statutory Authority & Reference
+                    </div>
+                    <div id="explanation-text" style="font-size: 0.88rem; line-height: 1.5;"></div>
+                </div>
+            </div>
+
+            <div class="q-actions">
+                <button class="btn-action-secondary" id="prev-btn" onclick="App.prevQuestion()">
+                    ← Previous
+                </button>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn-action-secondary" id="clear-btn" onclick="App.clearAnswer()">
+                        Clear Choice
+                    </button>
+                    <button class="btn-action-primary" id="next-btn" onclick="App.nextQuestion()">
+                        Next →
+                    </button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Right: Navigator & Jump Palette -->
+        <aside class="palette-card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-weight: 700; font-size: 0.88rem;">Question Palette</div>
+                <span style="font-size: 0.72rem; color: var(--text-sub);" id="palette-filter-label">All (180)</span>
+            </div>
+
+            <div class="palette-stats">
+                <div class="palette-stat-box">
+                    <div class="palette-stat-val" id="stat-answered" style="color: var(--primary);">0</div>
+                    <div class="palette-stat-lbl">Answered</div>
+                </div>
+                <div class="palette-stat-box">
+                    <div class="palette-stat-val" id="stat-starred" style="color: #fbbf24;">0</div>
+                    <div class="palette-stat-lbl">Starred</div>
+                </div>
+                <div class="palette-stat-box">
+                    <div class="palette-stat-val" id="stat-remaining" style="color: var(--text-muted);">180</div>
+                    <div class="palette-stat-lbl">Remaining</div>
+                </div>
+            </div>
+
+            <div class="palette-grid" id="palette-grid">
+                <!-- 180 Grid buttons rendered dynamically -->
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Scorecard & Analysis View (After Exam Submission) -->
+    <section id="scorecard-view" class="scorecard-view">
+        <div class="score-hero">
+            <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700;">Performance Summary</div>
+            <div class="score-big" id="final-score">0 / 180</div>
+            <div style="font-size: 1.1rem; font-weight: 600;" id="final-accuracy">0% Overall Accuracy</div>
+            <p style="color: var(--text-muted); max-width: 500px; font-size: 0.88rem;" id="final-recommendation">
+                Review your section trap areas and starred questions below.
+            </p>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button class="btn-action-primary" onclick="App.retakeExam()">🔄 Retake Exam</button>
+                <button class="btn-action-secondary" onclick="App.reviewWrongAnswers()">🔍 Review Mistakes</button>
+            </div>
+        </div>
+
+        <div class="breakdown-grid" id="category-breakdown-container">
+            <!-- Render category-wise performance breakdown -->
+        </div>
+    </section>
+
+</main>
+
+<!-- Trap Sheet Modal Drawer (Part B of Workbook) -->
+<div class="modal-overlay" id="trap-modal" onclick="if(event.target===this) App.closeTrapSheet()">
+    <div class="modal-card">
+        <div class="modal-header">
+            <div>
+                <h3 style="font-size: 1.1rem; font-weight: 800;">PART B | Penalty & Section Trap Sheet</h3>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">The numbers and statutory distinctions you must know instantly.</p>
+            </div>
+            <button class="btn-icon" onclick="App.closeTrapSheet()">✕</button>
+        </div>
+        <div class="modal-body">
+            
+            <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--primary); margin-bottom: 10px; letter-spacing: 0.05em;">
+                Statutory Penalties (Sections 50 - 63)
+            </h4>
+            <table class="trap-table">
+                <thead>
+                    <tr>
+                        <th>Contravention Trigger</th>
+                        <th>Sec</th>
+                        <th>Statutory Ceiling / Sentence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Demanded nature / substance / quality</td><td><span class="highlight-chip chip-sec">50</span></td><td><span class="highlight-chip chip-pen">Up to ₹5 Lakh</span></td></tr>
+                    <tr><td>Sub-standard food</td><td><span class="highlight-chip chip-sec">51</span></td><td><span class="highlight-chip chip-pen">Up to ₹5 Lakh</span></td></tr>
+                    <tr><td>Misbranded food</td><td><span class="highlight-chip chip-sec">52</span></td><td><span class="highlight-chip chip-pen">Up to ₹3 Lakh</span></td></tr>
+                    <tr><td>Misleading advertisement</td><td><span class="highlight-chip chip-sec">53</span></td><td><span class="highlight-chip chip-pen">Up to ₹10 Lakh</span></td></tr>
+                    <tr><td>Extraneous matter</td><td><span class="highlight-chip chip-sec">54</span></td><td><span class="highlight-chip chip-pen">Up to ₹1 Lakh</span></td></tr>
+                    <tr><td>Failure to comply with FSO direction</td><td><span class="highlight-chip chip-sec">55</span></td><td><span class="highlight-chip chip-pen">Up to ₹2 Lakh</span></td></tr>
+                    <tr><td>Unhygienic / unsanitary processing</td><td><span class="highlight-chip chip-sec">56</span></td><td><span class="highlight-chip chip-pen">Up to ₹1 Lakh</span></td></tr>
+                    <tr><td>Possession of adulterant (non-injurious)</td><td><span class="highlight-chip chip-sec">57</span></td><td><span class="highlight-chip chip-pen">Up to ₹2 Lakh</span></td></tr>
+                    <tr><td>Possession of adulterant (injurious)</td><td><span class="highlight-chip chip-sec">57</span></td><td><span class="highlight-chip chip-pen">Up to ₹10 Lakh</span></td></tr>
+                    <tr><td>General penalty (no specific penalty)</td><td><span class="highlight-chip chip-sec">58</span></td><td><span class="highlight-chip chip-pen">Up to ₹2 Lakh</span></td></tr>
+                    <tr><td>Unsafe food: No injury</td><td><span class="highlight-chip chip-sec">59(a)</span></td><td>≤ 6 months + ≤ ₹1 Lakh</td></tr>
+                    <tr><td>Unsafe food: Non-grievous injury</td><td><span class="highlight-chip chip-sec">59(b)</span></td><td>≤ 1 year + ≤ ₹3 Lakh</td></tr>
+                    <tr><td>Unsafe food: Grievous injury</td><td><span class="highlight-chip chip-sec">59(c)</span></td><td>≤ 6 years + ≤ ₹5 Lakh</td></tr>
+                    <tr><td>Unsafe food: Death</td><td><span class="highlight-chip chip-sec">59(d)</span></td><td><strong>7 yrs to Life + Min ₹10 Lakh</strong></td></tr>
+                    <tr><td>Interfering with seized items</td><td><span class="highlight-chip chip-sec">60</span></td><td>≤ 6 months + ≤ ₹2 Lakh</td></tr>
+                    <tr><td>Unlicensed food business operation</td><td><span class="highlight-chip chip-sec">63</span></td><td>≤ 6 months + ≤ ₹5 Lakh</td></tr>
+                </tbody>
+            </table>
+
+            <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--accent); margin: 18px 0 10px; letter-spacing: 0.05em;">
+                Five Critical Section Distinction Traps
+            </h4>
+            <div class="callout-box">
+                <h4>Section 31 vs Section 32</h4>
+                <p><strong>Section 31:</strong> Licensing & Registration scheme for Food Business Operators.<br><strong>Section 32:</strong> Improvement Notice issued by the Designated Officer (minimum 14 days compliance period).</p>
+            </div>
+            <div class="callout-box">
+                <h4>Section 33 vs Section 34</h4>
+                <p><strong>Section 33:</strong> Prohibition Order (court-linked following conviction).<br><strong>Section 34:</strong> Emergency Prohibition Order (immediate health risk without waiting for final conviction).</p>
+            </div>
+            <div class="callout-box">
+                <h4>Section 36 vs 37 vs 38</h4>
+                <p><strong>Section 36:</strong> Designated Officer (District-level officer, rank of SDO or above).<br><strong>Section 37:</strong> Appointment of Food Safety Officer (appointed by CFS by notification).<br><strong>Section 38:</strong> Field powers of the Food Safety Officer (inspection, sampling, seizure).</p>
+            </div>
+            <div class="callout-box">
+                <h4>Section 42 vs Section 47</h4>
+                <p><strong>Section 42:</strong> Procedure for launching prosecution.<br><strong>Section 47:</strong> Sampling and analysis methodology (divided into 4 parts).</p>
+            </div>
+            <div class="callout-box">
+                <h4>Section 68 vs Section 70</h4>
+                <p><strong>Section 68:</strong> Adjudicating Officer (Additional District Magistrate rank).<br><strong>Section 70:</strong> Food Safety Appellate Tribunal (presided by District Judge or former District Judge).</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+/**
+ * 180 Complete statutory questions database strictly matching the FSS Act, 2006 HPSC FSO Workbook.
+ */
+const QUESTION_DATABASE = [
+    // 001 - 040 (Section-wise MCQs)
+    { id: 1, cat: "MCQ", src: "HPSC-STYLE", q: "Which section establishes the Food Safety and Standards Authority of India (FSSAI)?", options: ["Section 3", "Section 4", "Section 5", "Section 16"], ans: 1, exp: "Section 4 establishes FSSAI as a body corporate having perpetual succession and a common seal." },
+    { id: 2, cat: "MCQ", src: "HPSC-STYLE", q: "The Food Safety and Standards Act, 2006 extends to:", options: ["Only States", "Only Union Territories", "The whole of India", "Only notified areas"], ans: 2, exp: "Section 1(2) states that the Act extends to the whole of India." },
+    { id: 3, cat: "MCQ", src: "HPSC-STYLE", q: "Section 2 declares that, in the public interest, the Union should take under its control the:", options: ["Pharmaceutical industry", "Food industry", "Retail industry", "Agricultural industry"], ans: 1, exp: "Section 2 makes this statutory declaration expedient in the public interest regarding the food industry." },
+    { id: 4, cat: "MCQ", src: "HPSC-STYLE", q: "Who is the 'Consumer' under Section 3?", options: ["Only a person eating food in a restaurant", "Persons and families purchasing and receiving food for personal needs", "Only a licensed FBO", "Only a retail purchaser"], ans: 1, exp: "The statutory definition covers persons and families purchasing and receiving food to meet personal needs." },
+    { id: 5, cat: "MCQ", src: "HPSC-STYLE", q: "Which is NOT included in the statutory definition of 'Food' under Section 3?", options: ["Packaged drinking water", "Chewing gum", "Animal feed", "Alcoholic drink"], ans: 2, exp: "Animal feed is expressly excluded from the statutory definition of food under Section 3(1)(j)." },
+    { id: 6, cat: "MCQ", src: "HPSC-STYLE", q: "A 'Food Business Operator' is the person who:", options: ["Only owns a food laboratory", "Carries on/owns the food business and is responsible for compliance", "Only manufactures packaged food", "Only sells imported food"], ans: 1, exp: "FBO responsibility is tied to carrying on/owning the business and ensuring compliance with the Act." },
+    { id: 7, cat: "MCQ", src: "HPSC-STYLE", q: "A substance present due to production, processing, packaging, transport or environmental contamination is generally a:", options: ["Contaminant", "Licence", "Claim", "Standard"], ans: 0, exp: "Section 3 distinguishes contaminant from extraneous matter; it covers non-intentional residues from processing/environment." },
+    { id: 8, cat: "MCQ", src: "HPSC-STYLE", q: "Extraneous matter, by statutory definition, does not:", options: ["Exist in food", "Come from raw materials", "Render the food unsafe", "Come from process systems"], ans: 2, exp: "The statutory definition specifically provides that such matter does not render the article unsafe." },
+    { id: 9, cat: "MCQ", src: "HPSC-STYLE", q: "Under the Act, 'Risk' is concerned with:", options: ["Only probability", "Only severity", "Probability and severity of an adverse health effect", "Only laboratory error"], ans: 2, exp: "Section 3 defines Risk as the function of the probability of an adverse health effect and the severity of that effect." },
+    { id: 10, cat: "MCQ", src: "HPSC-STYLE", q: "Which of the following is a component of 'Risk Assessment'?", options: ["Hazard identification", "Licence cancellation", "Adjudication", "Compounding"], ans: 0, exp: "Risk assessment scientifically includes hazard identification, hazard characterisation, exposure assessment, and risk characterisation." },
+    { id: 11, cat: "MCQ", src: "HPSC-STYLE", q: "Risk analysis includes:", options: ["Risk assessment, risk management and risk communication", "Only sampling and analysis", "Only risk assessment", "Only public communication"], ans: 0, exp: "Section 3 defines risk analysis as a process consisting of three interconnected components: assessment, management, and communication." },
+    { id: 12, cat: "MCQ", src: "HPSC-STYLE", q: "The head office of FSSAI is at:", options: ["Mumbai", "Chennai", "Delhi", "Hyderabad"], ans: 2, exp: "Section 4(3) places the head office of the Food Authority at Delhi." },
+    { id: 13, cat: "MCQ", src: "HPSC-STYLE", q: "The Food Authority consists of a Chairperson and:", options: ["12 members", "18 members", "22 members", "25 members"], ans: 2, exp: "Section 5 provides for a Chairperson and 22 members representing various stakeholder ministries and sectors." },
+    { id: 14, cat: "MCQ", src: "HPSC-STYLE", q: "At least what fraction of the Food Authority's members must be women?", options: ["One-fourth", "One-third", "One-half", "Two-thirds"], ans: 1, exp: "Section 5 requires that at least one-third of the 22 members shall be women." },
+    { id: 15, cat: "MCQ", src: "HPSC-STYLE", q: "The Selection Committee for recommending members of the Food Authority is chaired by the:", options: ["Health Secretary", "Cabinet Secretary", "CEO, FSSAI", "Chief Justice of India"], ans: 1, exp: "Under Section 6, the Cabinet Secretary chairs the high-level Selection Committee." },
+    { id: 16, cat: "MCQ", src: "HPSC-STYLE", q: "The term of office of the Chairperson/member (other than ex-officio) is:", options: ["1 year", "2 years", "3 years", "5 years"], ans: 2, exp: "Section 7 specifies that the term is three years, eligible for reappointment subject to statutory age ceilings." },
+    { id: 17, cat: "MCQ", src: "HPSC-STYLE", q: "The maximum age ceiling for the Chairperson of FSSAI is:", options: ["60 years", "62 years", "65 years", "70 years"], ans: 2, exp: "Section 7 fixes 65 years as the maximum age limit for the Chairperson." },
+    { id: 18, cat: "MCQ", src: "HPSC-STYLE", q: "The maximum age ceiling for a Member of FSSAI is:", options: ["60 years", "62 years", "65 years", "68 years"], ans: 1, exp: "Section 7 fixes 62 years as the maximum age limit for a Member." },
+    { id: 19, cat: "MCQ", src: "HPSC-STYLE", q: "The Chief Executive Officer (CEO) of FSSAI is not below the rank of:", options: ["Joint Secretary", "Additional Secretary to Government of India", "District Magistrate", "Director"], ans: 1, exp: "Section 9 specifies that the CEO must be an officer not below the rank of Additional Secretary to the Government of India." },
+    { id: 20, cat: "MCQ", src: "HPSC-STYLE", q: "The Central Advisory Committee is chaired ex-officio by the:", options: ["Chairperson of FSSAI", "CEO, FSSAI", "Commissioner of Food Safety", "Health Secretary"], ans: 1, exp: "Section 11/12 specifies that the CEO of the Food Authority is the ex-officio Chairperson of the Central Advisory Committee." },
+    { id: 21, cat: "MCQ", src: "HPSC-STYLE", q: "The Central Advisory Committee must meet at least:", options: ["Once a year", "Twice a year", "Three times a year", "Six times a year"], ans: 2, exp: "Section 12 provides that the Central Advisory Committee shall meet not less than three times in a year." },
+    { id: 22, cat: "MCQ", src: "HPSC-STYLE", q: "Which of the following is an established Scientific Panel under the Act?", options: ["Labelling", "Customs", "Finance", "Recruitment"], ans: 0, exp: "Section 13 enumerates specific Scientific Panels, which includes Labelling and Claims/Advertising." },
+    { id: 23, cat: "MCQ", src: "HPSC-STYLE", q: "The Scientific Committee consists of Chairpersons of the Scientific Panels plus:", options: ["2 independent experts", "4 independent experts", "6 independent experts", "10 independent experts"], ans: 2, exp: "Section 14 adds six independent scientific experts not affiliated with any panel." },
+    { id: 24, cat: "MCQ", src: "HPSC-STYLE", q: "Which section primarily sets out the duties and functions of the Food Authority (FSSAI)?", options: ["Section 10", "Section 14", "Section 16", "Section 18"], ans: 2, exp: "Section 16 comprehensively details the statutory duties and functions of the Food Authority." },
+    { id: 25, cat: "MCQ", src: "HPSC-STYLE", q: "Section 18 of the FSS Act is concerned with:", options: ["General principles of food safety", "Company offences", "Licensing fees", "Tribunal appeals"], ans: 0, exp: "Section 18 contains the guiding General Principles to be followed in administration of the Act." },
+    { id: 26, cat: "MCQ", src: "HPSC-STYLE", q: "The Precautionary Approach is relevant where harmful effects are identified but:", options: ["No food exists", "Scientific uncertainty persists", "The FBO is unlicensed", "The court has convicted the FBO"], ans: 1, exp: "Section 18 permits provisional risk management where scientific uncertainty persists regarding identified risks." },
+    { id: 27, cat: "MCQ", src: "HPSC-STYLE", q: "Measures adopted under the Precautionary Approach should be:", options: ["Unlimited and permanent", "Proportionate and no more trade-restrictive than necessary", "Automatically criminal", "Only financial"], ans: 1, exp: "Section 18 requires provisional measures to be proportionate and no more trade-restrictive than required." },
+    { id: 28, cat: "MCQ", src: "HPSC-STYLE", q: "If food in a batch fails safety requirements, same-class food in that batch is presumed non-compliant:", options: ["Always, irrebuttably", "Until the contrary is proved", "Only after conviction", "Only if imported"], ans: 1, exp: "Section 18 creates a rebuttable statutory presumption: presumed non-compliant 'until the contrary is proved'." },
+    { id: 29, cat: "MCQ", src: "HPSC-STYLE", q: "Food additives and processing aids may be used only when:", options: ["The seller permits them", "They are permitted under the Act/regulations", "They are cheap", "They are naturally occurring"], ans: 1, exp: "Section 19 prohibits use of additives/processing aids unless in accordance with the Act and regulations." },
+    { id: 30, cat: "MCQ", src: "HPSC-STYLE", q: "Contaminants, toxic substances and heavy metals must not exceed:", options: ["Any limit chosen by seller", "Prescribed quantities", "The laboratory's preference", "A verbal limit"], ans: 1, exp: "Section 20 mandates that contaminants and heavy metals must remain strictly within prescribed quantities." },
+    { id: 31, cat: "MCQ", src: "HPSC-STYLE", q: "Pesticide residues and veterinary drug residues must be:", options: ["Unlimited", "Within prescribed tolerance limits", "Zero in every case", "Ignored if labelled"], ans: 1, exp: "Section 21 mandates that pesticide residues must conform to prescribed tolerance limits." },
+    { id: 32, cat: "MCQ", src: "HPSC-STYLE", q: "Which section deals with special categories such as novel, genetically modified (GM), and irradiated foods?", options: ["Section 19", "Section 20", "Section 22", "Section 24"], ans: 2, exp: "Section 22 governs GM foods, novel foods, functional foods, dietary supplements, and irradiated food." },
+    { id: 33, cat: "MCQ", src: "HPSC-STYLE", q: "Packaging and labelling requirements are principally covered by:", options: ["Section 21", "Section 23", "Section 25", "Section 28"], ans: 1, exp: "Section 23 sets out statutory requirements for packaging and labelling." },
+    { id: 34, cat: "MCQ", src: "HPSC-STYLE", q: "Misleading food advertisements and unfair trade practices are prohibited under:", options: ["Section 18", "Section 23", "Section 24", "Section 31"], ans: 2, exp: "Section 24 specifically prohibits deceptive advertisements and unfair trade practices." },
+    { id: 35, cat: "MCQ", src: "HPSC-STYLE", q: "A person claiming efficacy of an article of food must have:", options: ["Only consumer approval", "Adequate/scientific justification as required by law", "A newspaper advertisement", "A police certificate"], ans: 1, exp: "Section 24 places the legal burden on the person making efficacy claims to provide scientific justification." },
+    { id: 36, cat: "MCQ", src: "HPSC-STYLE", q: "Which section regulates restrictions relating to import of articles of food?", options: ["Section 25", "Section 26", "Section 27", "Section 29"], ans: 0, exp: "Section 25 mandates that no person shall import any unsafe, misbranded, or sub-standard food into India." },
+    { id: 37, cat: "MCQ", src: "HPSC-STYLE", q: "The primary statutory responsibility of an FBO is to ensure compliance at:", options: ["Only the point of sale", "All stages under the FBO's control", "Only manufacturing", "Only import"], ans: 1, exp: "Section 26 explicitly fixes responsibility across all stages of production, processing, import, and distribution under control." },
+    { id: 38, cat: "MCQ", src: "HPSC-STYLE", q: "Food recall procedures are governed by:", options: ["Section 24", "Section 26", "Section 28", "Section 30"], ans: 2, exp: "Section 28 outlines mandatory food recall procedures when food fails safety requirements." },
+    { id: 39, cat: "MCQ", src: "HPSC-STYLE", q: "If an FBO believes food placed on the market may be unsafe, the FBO must:", options: ["Wait for a court order", "Immediately inform competent authorities and initiate recall", "Destroy all records", "Continue selling until testing"], ans: 1, exp: "Section 28 requires the FBO to immediately withdraw food and inform competent authorities." },
+    { id: 40, cat: "MCQ", src: "HPSC-STYLE", q: "Authorities responsible for enforcement of the Act include:", options: ["Only FSSAI", "FSSAI and State Food Safety Authorities", "Only police", "Only courts"], ans: 1, exp: "Section 29 identifies the Food Authority and State Food Safety Authorities as enforcement organs." },
+
+    // 041 - 080
+    { id: 41, cat: "MCQ", src: "HPSC-STYLE", q: "Who appoints the Commissioner of Food Safety (CFS)?", options: ["Central Government", "State Government", "FSSAI CEO", "District Magistrate"], ans: 1, exp: "Section 30(1) empowers the State Government to appoint the Commissioner of Food Safety." },
+    { id: 42, cat: "MCQ", src: "HPSC-STYLE", q: "The Commissioner of Food Safety may prohibit manufacture/sale of food for a period not exceeding:", options: ["3 months", "6 months", "1 year", "3 years"], ans: 2, exp: "Section 30(2)(a) empowers the Commissioner to prohibit food items in the interest of public health up to 1 year." },
+    { id: 43, cat: "MCQ", src: "HPSC-STYLE", q: "The licensing and registration framework for food business operators is in:", options: ["Section 30", "Section 31", "Section 32", "Section 36"], ans: 1, exp: "Section 31 establishes the requirement of obtaining a license or registration to carry on food business." },
+    { id: 44, cat: "MCQ", src: "HPSC-STYLE", q: "A petty manufacturer, hawker, or itinerant vendor under Section 31(2) follows:", options: ["Registration rather than ordinary licensing", "No regulatory requirement", "Only customs registration", "Only laboratory registration"], ans: 0, exp: "Section 31(2) exempts petty food business operators from licensing, requiring simple registration." },
+    { id: 45, cat: "MCQ", src: "HPSC-STYLE", q: "An Improvement Notice is issued under:", options: ["Section 31", "Section 32", "Section 33", "Section 34"], ans: 1, exp: "Section 32 governs the issuance of an Improvement Notice by the Designated Officer." },
+    { id: 46, cat: "MCQ", src: "HPSC-STYLE", q: "The minimum compliance period specified in an Improvement Notice is:", options: ["7 days", "10 days", "14 days", "30 days"], ans: 2, exp: "Section 32 provides that the compliance period specified in the notice cannot be less than 14 days." },
+    { id: 47, cat: "MCQ", src: "HPSC-STYLE", q: "A Prohibition Order under Section 33 follows:", options: ["A purely verbal warning", "Conviction and court satisfaction regarding health risk", "Laboratory appointment", "Licence application"], ans: 1, exp: "Section 33 is a court-linked measure following criminal conviction where health risk is established." },
+    { id: 48, cat: "MCQ", src: "HPSC-STYLE", q: "Emergency Prohibition notices and orders are provided under:", options: ["Section 32", "Section 33", "Section 34", "Section 35"], ans: 2, exp: "Section 34 provides for Emergency Prohibition where an imminent risk of injury to health exists." },
+    { id: 49, cat: "MCQ", src: "HPSC-STYLE", q: "Notification and reporting of food poisoning incidents is covered by:", options: ["Section 35", "Section 36", "Section 37", "Section 38"], ans: 0, exp: "Section 35 provides statutory mechanisms for reporting food poisoning cases by registered medical practitioners." },
+    { id: 50, cat: "MCQ", src: "HPSC-STYLE", q: "There is a Designated Officer (DO) appointed for each:", options: ["State", "District", "Division only", "Laboratory"], ans: 1, exp: "Section 36(1) states the Commissioner of Food Safety shall appoint one Designated Officer for each district." },
+    { id: 51, cat: "MCQ", src: "HPSC-STYLE", q: "The Designated Officer must be an officer not below the rank of:", options: ["Tehsildar", "Sub-Divisional Officer", "Additional District Magistrate", "Commissioner"], ans: 1, exp: "Section 36(1) mandates that the DO must be not below the rank of Sub-Divisional Officer (SDO)." },
+    { id: 52, cat: "MCQ", src: "HPSC-STYLE", q: "The Food Safety Officer (FSO) is appointed by the:", options: ["State Government directly", "Commissioner of Food Safety", "Food Analyst", "Adjudicating Officer"], ans: 1, exp: "Section 37(1) specifies that the Commissioner of Food Safety appoints Food Safety Officers by notification." },
+    { id: 53, cat: "MCQ", src: "HPSC-STYLE", q: "The main field enforcement powers of the Food Safety Officer are contained in:", options: ["Section 37", "Section 38", "Section 39", "Section 42"], ans: 1, exp: "Section 38 elaborates the statutory powers of the FSO (taking samples, seizure, inspection)." },
+    { id: 54, cat: "MCQ", src: "HPSC-STYLE", q: "An FSO may seize an article of food when there is:", options: ["No reason at all", "Reasonable doubt of involvement in an offence under the Act", "Only a consumer complaint", "Only a court warrant in every case"], ans: 1, exp: "Section 38/41 authorizes seizure where there is reasonable suspicion or doubt of contravention." },
+    { id: 55, cat: "MCQ", src: "HPSC-STYLE", q: "Seizure of books/documents under Section 38(6) requires previous approval from:", options: ["The authority to which the FSO is subordinate", "The Consumer", "The Food Analyst", "The Tribunal"], ans: 0, exp: "Section 38(6) mandates previous approval of the authority to which the FSO is subordinate." },
+    { id: 56, cat: "MCQ", src: "HPSC-STYLE", q: "The burden regarding an adulterant seized under Section 38(9) lies on:", options: ["The Food Analyst", "The person from whose possession it was seized", "The Consumer", "The Court"], ans: 1, exp: "Section 38(9) places the burden on that person to prove the adulterant was not meant for adulteration." },
+    { id: 57, cat: "MCQ", src: "HPSC-STYLE", q: "A vexatious or unreasonable seizure by an FSO may attract a penalty up to:", options: ["₹25,000", "₹50,000", "₹1 Lakh", "₹10 Lakh"], ans: 2, exp: "Section 39 penalizes an FSO who vexatiously/unreasonably seizes food with penalty up to ₹1 Lakh." },
+    { id: 58, cat: "MCQ", src: "HPSC-STYLE", q: "A purchaser (other than an FSO) may have food analysed under:", options: ["Section 38", "Section 40", "Section 42", "Section 47"], ans: 1, exp: "Section 40 gives any purchaser the statutory right to have food analysed on payment of fee." },
+    { id: 59, cat: "MCQ", src: "HPSC-STYLE", q: "Search and seizure powers corresponding to the CrPC are specifically covered in:", options: ["Section 39", "Section 40", "Section 41", "Section 43"], ans: 2, exp: "Section 41 provides the power of search and seizure applying CrPC provisions." },
+    { id: 60, cat: "MCQ", src: "HPSC-STYLE", q: "Who is responsible for inspecting food businesses, drawing samples, and sending them to the Food Analyst?", options: ["Food Safety Officer", "Food Analyst", "Adjudicating Officer", "Tribunal"], ans: 0, exp: "Section 42(1) places inspection and sampling duties directly on the Food Safety Officer." },
+    { id: 61, cat: "MCQ", src: "HPSC-STYLE", q: "The Food Analyst normally delivers the analysis report within:", options: ["5 days", "7 days", "14 days", "30 days"], ans: 2, exp: "Section 46(3) mandates that the Food Analyst shall deliver the report within 14 days of receipt." },
+    { id: 62, cat: "MCQ", src: "HPSC-STYLE", q: "A normal sample taken by an FSO under Section 47 is divided into:", options: ["2 parts", "3 parts", "4 parts", "5 parts"], ans: 2, exp: "Section 47(1)(b) mandates dividing the sample into 4 equal parts for distribution to analyst/DO/accredited lab." },
+    { id: 63, cat: "MCQ", src: "HPSC-STYLE", q: "If the FBO refuses to sign or thumb-impress the sample record, the FSO should:", options: ["Abandon sampling", "Call one or more witnesses and obtain their signatures", "Destroy the food immediately", "Issue a licence"], ans: 1, exp: "Section 47 provides that the FSO shall call one or more witnesses and obtain their signatures on refusal." },
+    { id: 64, cat: "MCQ", src: "HPSC-STYLE", q: "If reports from the Food Analyst and an accredited laboratory are at variance, the matter goes to:", options: ["Police laboratory", "Referral Food Laboratory", "Adjudicating Officer", "Consumer Court"], ans: 1, exp: "Section 47 mandates sending the retained part to the Referral Food Laboratory to resolve variance." },
+    { id: 65, cat: "MCQ", src: "HPSC-STYLE", q: "The Referral Food Laboratory's decision under Section 47 is:", options: ["Advisory only", "Final and conclusive", "Subject to seller approval", "Automatically void"], ans: 1, exp: "Section 47 expressly makes the report of the Referral Food Laboratory final and conclusive." },
+    { id: 66, cat: "MCQ", src: "HPSC-STYLE", q: "Selling food not of the nature, substance, or quality demanded by the purchaser attracts:", options: ["Section 50", "Section 51", "Section 52", "Section 53"], ans: 0, exp: "Section 50 penalizes selling food not of the nature, substance or quality demanded (up to ₹5 Lakh)." },
+    { id: 67, cat: "MCQ", src: "HPSC-STYLE", q: "The maximum statutory penalty for sub-standard food under Section 51 is:", options: ["₹1 Lakh", "₹2 Lakh", "₹3 Lakh", "₹5 Lakh"], ans: 3, exp: "Section 51 provides a penalty which may extend to five lakh rupees (₹5,00,000)." },
+    { id: 68, cat: "MCQ", src: "HPSC-STYLE", q: "The maximum penalty for misbranded food under Section 52 is:", options: ["₹1 Lakh", "₹3 Lakh", "₹5 Lakh", "₹10 Lakh"], ans: 1, exp: "Section 52 prescribes a penalty up to three lakh rupees (₹3,00,000) for misbranded food." },
+    { id: 69, cat: "MCQ", src: "HPSC-STYLE", q: "The maximum penalty for misleading advertisement under Section 53 is:", options: ["₹2 Lakh", "₹5 Lakh", "₹10 Lakh", "₹20 Lakh"], ans: 2, exp: "Section 53 provides a penalty which may extend to ten lakh rupees (₹10,00,000)." },
+    { id: 70, cat: "MCQ", src: "HPSC-STYLE", q: "The maximum penalty for food containing extraneous matter under Section 54 is:", options: ["₹50,000", "₹1 Lakh", "₹3 Lakh", "₹5 Lakh"], ans: 1, exp: "Section 54 provides a penalty extending up to one lakh rupees (₹1,00,000)." },
+    { id: 71, cat: "MCQ", src: "HPSC-STYLE", q: "Failure to comply with lawful directions of an FSO under Section 55 attracts penalty up to:", options: ["₹50,000", "₹1 Lakh", "₹2 Lakh", "₹5 Lakh"], ans: 2, exp: "Section 55 provides a penalty extending up to two lakh rupees (₹2,00,000)." },
+    { id: 72, cat: "MCQ", src: "HPSC-STYLE", q: "Unhygienic or unsanitary processing/manufacturing under Section 56 may attract penalty up to:", options: ["₹1 Lakh", "₹2 Lakh", "₹5 Lakh", "₹10 Lakh"], ans: 0, exp: "Section 56 prescribes penalty up to one lakh rupees (₹1,00,000)." },
+    { id: 73, cat: "MCQ", src: "HPSC-STYLE", q: "Possession of an adulterant injurious to health under Section 57 may attract penalty up to:", options: ["₹2 Lakh", "₹5 Lakh", "₹10 Lakh", "₹20 Lakh"], ans: 2, exp: "Section 57 prescribes penalty up to ₹10 Lakh if the adulterant is injurious to health (₹2 Lakh if not injurious)." },
+    { id: 74, cat: "MCQ", src: "HPSC-STYLE", q: "Contravention for which no specific penalty is provided in the Act attracts Section:", options: ["Section 56", "Section 57", "Section 58", "Section 60"], ans: 2, exp: "Section 58 is the general penalty clause (penalty up to two lakh rupees)." },
+    { id: 75, cat: "MCQ", src: "HPSC-STYLE", q: "Under Section 59, unsafe food causing no injury may attract imprisonment up to:", options: ["3 months", "6 months", "1 year", "3 years"], ans: 1, exp: "Section 59(a) provides imprisonment up to 6 months and fine up to ₹1 Lakh." },
+    { id: 76, cat: "MCQ", src: "HPSC-STYLE", q: "Unsafe food causing non-grievous injury under Section 59 attracts imprisonment up to:", options: ["6 months", "1 year", "3 years", "6 years"], ans: 1, exp: "Section 59(b) provides imprisonment up to 1 year and fine up to ₹3 Lakh." },
+    { id: 77, cat: "MCQ", src: "HPSC-STYLE", q: "Unsafe food causing grievous injury under Section 59 attracts imprisonment up to:", options: ["1 year", "3 years", "6 years", "10 years"], ans: 2, exp: "Section 59(c) provides imprisonment up to 6 years and fine up to ₹5 Lakh." },
+    { id: 78, cat: "MCQ", src: "HPSC-STYLE", q: "Unsafe food causing death under Section 59(d) attracts imprisonment of:", options: ["1-3 years", "3-5 years", "Not less than 7 years extending to life", "Only life imprisonment"], ans: 2, exp: "Section 59(d) mandates imprisonment for not less than seven years, which may extend to life." },
+    { id: 79, cat: "MCQ", src: "HPSC-STYLE", q: "The minimum mandatory fine where unsafe food causes death under Section 59(d) is:", options: ["₹1 Lakh", "₹5 Lakh", "₹10 Lakh", "₹20 Lakh"], ans: 2, exp: "Section 59(d) specifies a fine which shall not be less than ten lakh rupees (₹10,00,000)." },
+    { id: 80, cat: "MCQ", src: "HPSC-STYLE", q: "Interfering with seized food or materials without permission is penalised under:", options: ["Section 58", "Section 59", "Section 60", "Section 61"], ans: 2, exp: "Section 60 penalizes interference with seized articles (imprisonment up to 6 months + fine up to ₹2 Lakh)." },
+
+    // 081 - 130
+    { id: 81, cat: "MCQ", src: "HPSC-STYLE", q: "Providing false information to food safety authorities is covered under:", options: ["Section 60", "Section 61", "Section 62", "Section 63"], ans: 1, exp: "Section 61 punishes false information (up to 3 months imprisonment + fine up to ₹2 Lakh)." },
+    { id: 82, cat: "MCQ", src: "HPSC-STYLE", q: "Obstructing or impersonating a Food Safety Officer is covered by:", options: ["Section 61", "Section 62", "Section 63", "Section 64"], ans: 1, exp: "Section 62 punishes obstructing, assaulting, or impersonating an FSO (imprisonment up to 3 months + fine up to ₹1 Lakh)." },
+    { id: 83, cat: "MCQ", src: "HPSC-STYLE", q: "Carrying on a food business without the required licence is penalised under:", options: ["Section 61", "Section 62", "Section 63", "Section 67"], ans: 2, exp: "Section 63 punishes carrying on business without licence (imprisonment up to 6 months and fine up to ₹5 Lakh)." },
+    { id: 84, cat: "MCQ", src: "HPSC-STYLE", q: "Offences by companies and corporate liability are governed by:", options: ["Section 64", "Section 65", "Section 66", "Section 67"], ans: 2, exp: "Section 66 governs company offences, fixing liability on directors/persons in charge." },
+    { id: 85, cat: "MCQ", src: "HPSC-STYLE", q: "Import contravention penalties under the FSS Act are:", options: ["In substitution for all other laws", "In addition to specified penalties under other applicable laws", "Only civil", "Only administrative"], ans: 1, exp: "Section 67 states that FSS Act penalties are in addition to penalties under the Foreign Trade/Customs Act." },
+    { id: 86, cat: "MCQ", src: "HPSC-STYLE", q: "The Adjudicating Officer (AO) must be an officer not below the rank of:", options: ["Sub-Divisional Officer", "Additional District Magistrate", "District Judge", "Commissioner"], ans: 1, exp: "Section 68 specifies that the Adjudicating Officer must be not below the rank of Additional District Magistrate (ADM)." },
+    { id: 87, cat: "MCQ", src: "HPSC-STYLE", q: "Who appoints / notifies the Adjudicating Officer under Section 68?", options: ["Central Government", "State Government", "FSSAI CEO", "Commissioner of Food Safety"], ans: 1, exp: "Section 68(1) vests notification of the Adjudicating Officer in the State Government." },
+    { id: 88, cat: "MCQ", src: "HPSC-STYLE", q: "The maximum compounding amount under Section 69 is:", options: ["₹25,000", "₹50,000", "₹1 Lakh", "₹5 Lakh"], ans: 2, exp: "Section 69 caps compounding at the maximum fine for the offence or one lakh rupees, whichever is less." },
+    { id: 89, cat: "MCQ", src: "HPSC-STYLE", q: "An offence punishable with imprisonment under the Act:", options: ["Must be compounded", "Cannot be compounded", "Can be compounded by police", "Can be compounded only by Tribunal"], ans: 1, exp: "Section 69 expressly excludes offences punishable with imprisonment from compounding." },
+    { id: 90, cat: "MCQ", src: "HPSC-STYLE", q: "The Presiding Officer of the Food Safety Appellate Tribunal must be or have been a:", options: ["Tehsildar", "District Judge", "High Court Judge only", "Food Analyst"], ans: 1, exp: "Section 70 requires the Presiding Officer to be qualified as a District Judge." },
+    { id: 91, cat: "MCQ", src: "HPSC-STYLE", q: "The Food Safety Appellate Tribunal is guided by:", options: ["Strict CPC procedure only", "Principles of natural justice", "Police procedure", "Customs procedure"], ans: 1, exp: "Section 71 provides that the Tribunal is not bound by CPC but is guided by principles of natural justice." },
+    { id: 92, cat: "MCQ", src: "HPSC-STYLE", q: "An appeal from the Appellate Tribunal to the High Court ordinarily lies within:", options: ["30 days", "45 days", "60 days", "90 days"], ans: 2, exp: "Section 71 provides an appeal period of 60 days from the date of communication of the order." },
+    { id: 93, cat: "MCQ", src: "HPSC-STYLE", q: "Civil court jurisdiction is expressly barred by which section?", options: ["Section 70", "Section 71", "Section 72", "Section 73"], ans: 2, exp: "Section 72 bars civil courts from entertaining suits in respect of any matter an Adjudicating Officer or Tribunal decides." },
+    { id: 94, cat: "MCQ", src: "HPSC-STYLE", q: "Summary trials by a Judicial Magistrate are dealt with under:", options: ["Section 71", "Section 72", "Section 73", "Section 74"], ans: 2, exp: "Section 73 authorizes summary trials for offences not punishable with imprisonment exceeding three years." },
+    { id: 95, cat: "MCQ", src: "HPSC-STYLE", q: "Maximum imprisonment in a summary trial conviction under Section 73 is:", options: ["6 months", "1 year", "3 years", "6 years"], ans: 1, exp: "Section 73 caps sentence upon conviction in a summary trial at one year." },
+    { id: 96, cat: "MCQ", src: "HPSC-STYLE", q: "Establishment of Special Courts for trial of serious offences is under:", options: ["Section 72", "Section 73", "Section 74", "Section 76"], ans: 2, exp: "Section 74 provides for the constitution of Special Courts." },
+    { id: 97, cat: "MCQ", src: "HPSC-STYLE", q: "A Public Prosecutor appointed for a Special Court requires legal practice of at least:", options: ["3 years", "5 years", "7 years", "10 years"], ans: 2, exp: "Section 74 requires at least seven years of advocacy / relevant legal experience." },
+    { id: 98, cat: "MCQ", src: "HPSC-STYLE", q: "Appeal from a Special Court to the High Court must ordinarily be filed within:", options: ["30 days", "45 days", "60 days", "90 days"], ans: 1, exp: "Section 76 provides 45 days for filing an appeal from the Special Court to the High Court." },
+    { id: 99, cat: "MCQ", src: "HPSC-STYLE", q: "The ordinary limitation period for taking cognizance under Section 77 is:", options: ["6 months", "1 year", "2 years", "3 years"], ans: 1, exp: "Section 77 sets the normal limitation period as one year from the date of commission of the offence." },
+    { id: 100, cat: "MCQ", src: "HPSC-STYLE", q: "The Commissioner may approve prosecution beyond one year for recorded reasons up to:", options: ["18 months", "2 years", "3 years", "5 years"], ans: 2, exp: "Section 77 allows extension of limitation up to three years with recorded approval of the Commissioner." },
+    { id: 101, cat: "MCQ", src: "HPSC-STYLE", q: "Which section specifies available statutory defences?", options: ["Section 77", "Section 78", "Section 79", "Section 80"], ans: 3, exp: "Section 80 enumerates specific statutory defences (e.g., due diligence, warranty)." },
+    { id: 102, cat: "MCQ", src: "HPSC-STYLE", q: "Under Section 80, a mere mistaken reasonable belief is:", options: ["Always a defence", "Not a defence under Section 80", "A complete defence only for sellers", "A defence only if food is imported"], ans: 1, exp: "Section 80 explicitly excludes mere mistaken belief from serving as an automatic defence." },
+    { id: 103, cat: "MCQ", src: "HPSC-STYLE", q: "Comptroller and Auditor-General (CAG) audit of FSSAI accounts is under:", options: ["Section 81", "Section 82", "Section 83", "Section 84"], ans: 2, exp: "Section 83 mandates auditing of the accounts of FSSAI by the CAG." },
+    { id: 104, cat: "MCQ", src: "HPSC-STYLE", q: "Preparation and submission of the Annual Report by FSSAI is governed by:", options: ["Section 82", "Section 83", "Section 84", "Section 85"], ans: 2, exp: "Section 84 requires FSSAI to prepare an annual report for submission to the Central Government." },
+    { id: 105, cat: "MCQ", src: "HPSC-STYLE", q: "The Overriding Effect provision of the FSS Act is contained in:", options: ["Section 87", "Section 88", "Section 89", "Section 90"], ans: 2, exp: "Section 89 establishes that the provisions of the FSS Act override all other food-related laws." },
+    { id: 106, cat: "MCQ", src: "HPSC-STYLE", q: "Rule-making powers of the Central Government are under:", options: ["Section 89", "Section 90", "Section 91", "Section 92"], ans: 2, exp: "Section 91 confers power on the Central Government to make rules." },
+    { id: 107, cat: "MCQ", src: "HPSC-STYLE", q: "Power of the Food Authority (FSSAI) to make Regulations is under:", options: ["Section 90", "Section 91", "Section 92", "Section 94"], ans: 2, exp: "Section 92 empowers FSSAI to make regulations consistent with the Act with prior approval." },
+    { id: 108, cat: "MCQ", src: "HPSC-STYLE", q: "Rule-making powers of the State Governments are provided under:", options: ["Section 92", "Section 93", "Section 94", "Section 95"], ans: 2, exp: "Section 94 confers power on State Governments to make rules." },
+    { id: 109, cat: "MCQ", src: "HPSC-STYLE", q: "An unpaid monetary penalty under Section 96 is recovered as an:", options: ["Arrear of land revenue", "Civil debt only", "Customs duty", "Court fee"], ans: 0, exp: "Section 96 provides recovery as an arrear of land revenue and suspension of licence until payment." },
+    { id: 110, cat: "MCQ", src: "HPSC-STYLE", q: "Repeal and savings of legacy food laws (such as PFA 1954) is enacted under:", options: ["Section 95", "Section 96", "Section 97", "Section 98"], ans: 2, exp: "Section 97 repeals the Prevention of Food Adulteration Act, 1954 and specified food orders." },
+    { id: 111, cat: "MCQ", src: "HPSC-STYLE", q: "Transitory provisions regarding continuation of food standards are in:", options: ["Section 97", "Section 98", "Section 99", "Section 100"], ans: 1, exp: "Section 98 contains transitory provisions ensuring continuous validity of legacy standards until new ones are framed." },
+    { id: 112, cat: "MCQ", src: "HPSC-STYLE", q: "The Milk and Milk Products Order, 1992 is deemed to be regulations under:", options: ["Section 97", "Section 98", "Section 99", "Section 100"], ans: 2, exp: "Section 99 deems the Milk and Milk Products Order, 1992 to be regulations made under the Act." },
+    { id: 113, cat: "MCQ", src: "HPSC-STYLE", q: "The power of the Central Government to remove difficulties is provided in:", options: ["Section 98", "Section 99", "Section 100", "Section 101"], ans: 3, exp: "Section 101 empowers the Central Government to issue orders removing statutory difficulties." },
+    { id: 114, cat: "MCQ", src: "HPSC-STYLE", q: "Which statement about the Food Safety Officer under Section 37 is correct?", options: ["Appointed by the Food Analyst", "Appointed by Commissioner of Food Safety by notification", "Appointed by Tribunal", "Elected by FBOs"], ans: 1, exp: "Section 37 explicitly places appointment of FSOs with the Commissioner of Food Safety by notification." },
+    { id: 115, cat: "MCQ", src: "HPSC-STYLE", q: "Which statutory authority can issue an Improvement Notice?", options: ["Food Analyst", "Designated Officer", "Adjudicating Officer", "Tribunal"], ans: 1, exp: "Section 32 assigns the authority to issue an Improvement Notice to the Designated Officer." },
+    { id: 116, cat: "MCQ", src: "HPSC-STYLE", q: "An appeal against refusal of a license by the Designated Officer under Section 31 lies to the:", options: ["Commissioner of Food Safety", "Food Analyst", "High Court directly", "Central Advisory Committee"], ans: 0, exp: "Section 31 provides that appeals against refusal/cancellation of license lie to the Commissioner of Food Safety." },
+    { id: 117, cat: "MCQ", src: "HPSC-STYLE", q: "Which is the correct distinction between Section 33 and Section 34?", options: ["33 is licensing; 34 is sampling", "33 is court Prohibition Order; 34 is Emergency Prohibition", "33 is recall; 34 is advertisement", "33 is adjudication; 34 is appeal"], ans: 1, exp: "Section 33 is a court-ordered Prohibition Order after conviction; Section 34 provides emergency prohibition." },
+    { id: 118, cat: "MCQ", src: "HPSC-STYLE", q: "The Commissioner of Food Safety may issue binding guidelines regarding:", options: ["FSO powers", "Only laboratory fees", "Only advertisements", "Only imports"], ans: 0, exp: "Section 38(10) authorizes the Commissioner of Food Safety to issue binding guidelines on exercise of FSO powers." },
+    { id: 119, cat: "MCQ", src: "HPSC-STYLE", q: "The Food Safety Officer must inform the Designated Officer after search/seizure under:", options: ["Section 38", "Section 39", "Section 41", "Section 46"], ans: 2, exp: "Section 41 mandates written notification to the Designated Officer immediately following search and seizure." },
+    { id: 120, cat: "MCQ", src: "HPSC-STYLE", q: "Books or documents seized by an FSO under Section 38 should ordinarily be returned within:", options: ["7 days", "14 days", "30 days", "60 days"], ans: 2, exp: "Section 38(8) specifies that seized books/documents must be returned within a period not exceeding 30 days." },
+    { id: 121, cat: "MCQ", src: "HPSC-STYLE", q: "A purchaser requesting food analysis under Section 40 must:", options: ["Inform the FBO at purchase and pay prescribed fee", "Obtain a court warrant", "Be a licensed FBO", "Pay no fee"], ans: 0, exp: "Section 40 mandates notice to the vendor at purchase and payment of the prescribed analytical fee." },
+    { id: 122, cat: "MCQ", src: "HPSC-STYLE", q: "On receipt of a sample, the Food Analyst compares the container seal with:", options: ["The seller's licence", "The specimen impression received separately", "The FSO's ID card", "The court seal"], ans: 1, exp: "Section 46 requires the Food Analyst to verify the sample seal against the specimen impression sent separately." },
+    { id: 123, cat: "MCQ", src: "HPSC-STYLE", q: "If a sample container is broken or unfit for analysis, the Food Analyst must inform the DO within:", options: ["24 hours", "7 days", "14 days", "30 days"], ans: 1, exp: "Section 46 requires informing the DO within 7 days and requesting the second preserved sample part." },
+    { id: 124, cat: "MCQ", src: "HPSC-STYLE", q: "Under Section 47, a retained sample part may be sent to an accredited laboratory if:", options: ["The FBO requests it", "The consumer requests it", "The police requests it only", "The court always orders it"], ans: 0, exp: "Section 47(1)(c)(iii) gives the FBO the right to request testing of the fourth part at an accredited laboratory." },
+    { id: 125, cat: "MCQ", src: "HPSC-STYLE", q: "Which of the following is NOT one of the penalty determination factors under Section 49?", options: ["Gain or unfair advantage", "Loss caused or likely caused", "Repetitive nature of defaults", "Favourite brand of the FBO"], ans: 3, exp: "Section 49 lists amount of gain, loss caused, repetitive nature, and general culpability as statutory criteria." },
+    { id: 126, cat: "MCQ", src: "HPSC-STYLE", q: "Which penalty section is matched correctly?", options: ["51 - Misleading advertisement", "52 - Misbranded food", "53 - Extraneous matter", "54 - Unsafe food"], ans: 1, exp: "Section 52 correctly matches Misbranded Food (Section 53 is Misleading Ads, 54 Extraneous, 51 Sub-standard)." },
+    { id: 127, cat: "MCQ", src: "HPSC-STYLE", q: "Which consequence attracts the highest criminal punishment under Section 59?", options: ["No injury", "Non-grievous injury", "Grievous injury", "Death"], ans: 3, exp: "Under Section 59(d), causing death attracts imprisonment from 7 years to life and a minimum fine of ₹10 Lakh." },
+    { id: 128, cat: "MCQ", src: "HPSC-STYLE", q: "Which section specifically establishes liability for offences committed by companies?", options: ["Section 63", "Section 64", "Section 65", "Section 66"], ans: 3, exp: "Section 66 establishes vicarious criminal and civil liability for companies and designated in-charge persons." },
+    { id: 129, cat: "MCQ", src: "HPSC-STYLE", q: "Which appellate body hears appeals against decisions of the Adjudicating Officer?", options: ["Food Safety Appellate Tribunal", "Scientific Committee", "Central Advisory Committee", "Referral Food Laboratory"], ans: 0, exp: "Section 70 establishes the Food Safety Appellate Tribunal specifically to hear appeals from adjudication." },
+    { id: 130, cat: "MCQ", src: "HPSC-STYLE", q: "The limitation period for appeal from the Tribunal to the High Court may be extended by a further period up to:", options: ["15 days", "30 days", "60 days", "90 days"], ans: 2, exp: "Section 71 provides 60 days normally, extendable by a further period up to 60 days upon showing sufficient cause." },
+
+    // 131 - 145 (Assertion-Reason)
+    { id: 131, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): The FSS Act adopts a precautionary approach.\nReason (R): Provisional risk-management measures may be adopted where possible harmful effects are identified but scientific uncertainty persists.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 0, exp: "Both A and R are true. Section 18 expressly enacts the precautionary approach where scientific uncertainty persists." },
+    { id: 132, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): A whole batch of food may be presumed non-compliant when one food item in it fails safety requirements.\nReason (R): The statutory presumption is absolute and cannot be rebutted.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 2, exp: "A is true, but R is false. Section 18 states the presumption holds only 'until the contrary is proved' (rebuttable)." },
+    { id: 133, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): An FSO may be held liable for a vexatious seizure.\nReason (R): Section 39 penalises such action when done without reasonable grounds with penalty up to ₹1 Lakh.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 0, exp: "Both A and R are true, and Section 39 provides statutory accountability for mala fide or vexatious actions." },
+    { id: 134, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): An imprisonment offence can be compounded under Section 69 if the FBO pays ₹1 Lakh.\nReason (R): The Act permits all offences to be compounded.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, and R is false"], ans: 3, exp: "Both statements are completely false. Section 69 strictly prohibits compounding any offence punishable with imprisonment." },
+    { id: 135, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): The Food Analyst normally reports within 14 days.\nReason (R): Section 46(3) provides this period from receipt of the sample, subject to its proviso.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 0, exp: "Both statements are true and R provides the exact statutory basis under Section 46(3)." },
+    { id: 136, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): The Referral Food Laboratory's decision under Section 47 is final.\nReason (R): It resolves variance between analytical reports from the Food Analyst and an accredited laboratory.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 0, exp: "Both are true. Section 47 expressly assigns conclusive finality to the Referral Food Laboratory findings." },
+    { id: 137, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): The Designated Officer is a district-level officer.\nReason (R): Section 36 provides that there shall be one Designated Officer for each district.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 0, exp: "Both A and R are true. Section 36 establishes district jurisdiction for the Designated Officer." },
+    { id: 138, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): The Food Safety Officer is appointed directly by the State Government.\nReason (R): The Commissioner of Food Safety appoints FSOs by official notification.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 3, exp: "A is false; R is true. Section 37 vests the appointment power in the Commissioner of Food Safety, not the State Cabinet directly." },
+    { id: 139, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): Misbranded food and unsafe food are legally identical concepts.\nReason (R): Misbranding concerns deceptive representation or labelling, while unsafe food concerns injury to health.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 3, exp: "A is false; R is true. Misbranded food (Sec 3/52) and Unsafe food (Sec 3/59) are distinct statutory categories." },
+    { id: 140, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): Section 89 gives overriding effect to the FSS Act, 2006.\nReason (R): It addresses inconsistencies with older, fragmented food-related laws.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 0, exp: "Both are true. Section 89 provides that the FSS Act shall override any other law in force relating to food." },
+    { id: 141, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): Summary trial can result in imprisonment beyond one year under Section 73.\nReason (R): Section 73 caps imprisonment upon summary conviction at one year.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 3, exp: "A is false; R is true. Section 73 prohibits imposing a sentence exceeding one year in a summary trial." },
+    { id: 142, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): A food business licence may be suspended until an unpaid penalty is recovered.\nReason (R): Section 96 provides recovery as an arrear of land revenue and suspension of licence until payment.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 0, exp: "Both statements are true and R provides the statutory consequence specified in Section 96." },
+    { id: 143, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): Section 24 places vital importance on scientific justification for efficacy claims.\nReason (R): The person making the claim bears the statutory evidentiary burden.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 0, exp: "Both A and R are true. Section 24 requires empirical evidence and shifts the burden to the claimant." },
+    { id: 144, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): Section 32 is an Improvement Notice provision.\nReason (R): It gives the FBO a statutory opportunity to correct non-compliance before suspension/cancellation.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 0, exp: "Both are true. Section 32 establishes a graduated compliance mechanism before harsher administrative action." },
+    { id: 145, cat: "AR", src: "HPSC-STYLE", q: "Assertion (A): The FSSAI headquarters is in Delhi.\nReason (R): Section 4(3) expressly specifies Delhi as the head office.", options: ["Both A and R are true, and R is the correct explanation of A", "Both A and R are true, but R is not the correct explanation of A", "A is true, but R is false", "A is false, but R is true"], ans: 0, exp: "Both are true and R accurately references Section 4(3) of the Act." },
+
+    // 146 - 155 (Match-the-Following)
+    { id: 146, cat: "MATCH", src: "HPSC-STYLE", q: "Match List I with List II:\nList I: (1) Section 31 (2) Section 32 (3) Section 37 (4) Section 45\nList II: (A) Food Analyst (B) Licence/registration (C) Improvement Notice (D) Food Safety Officer", options: ["1-B, 2-C, 3-D, 4-A", "1-A, 2-B, 3-C, 4-D", "1-D, 2-C, 3-B, 4-A", "1-B, 2-A, 3-D, 4-C"], ans: 0, exp: "31=Licensing/Registration, 32=Improvement Notice, 37=FSO appointment, 45=Food Analyst." },
+    { id: 147, cat: "MATCH", src: "HPSC-STYLE", q: "Match Section with Contravention:\nList I: (1) Section 50 (2) Section 51 (3) Section 52 (4) Section 53\nList II: (A) Misbranded (B) Misleading advertisement (C) Nature/substance/quality demanded (D) Sub-standard", options: ["1-C, 2-D, 3-A, 4-B", "1-A, 2-B, 3-C, 4-D", "1-D, 2-C, 3-B, 4-A", "1-B, 2-A, 3-D, 4-C"], ans: 0, exp: "50=Nature/substance/quality, 51=Sub-standard, 52=Misbranded, 53=Misleading advertisement." },
+    { id: 148, cat: "MATCH", src: "HPSC-STYLE", q: "Match Section with Statutory Mechanism:\nList I: (1) Section 68 (2) Section 69 (3) Section 70 (4) Section 72\nList II: (A) Civil court bar (B) Adjudication (C) Compounding (D) Tribunal", options: ["1-B, 2-C, 3-D, 4-A", "1-A, 2-B, 3-C, 4-D", "1-D, 2-C, 3-B, 4-A", "1-B, 2-A, 3-D, 4-C"], ans: 0, exp: "68=Adjudication by ADM, 69=Compounding, 70=Appellate Tribunal, 72=Civil court bar." },
+    { id: 149, cat: "MATCH", src: "HPSC-STYLE", q: "Match Enforcement Sections:\nList I: (1) Section 23 (2) Section 24 (3) Section 28 (4) Section 29\nList II: (A) Recall (B) Packaging/labelling (C) Advertisement (D) Enforcement authorities", options: ["1-B, 2-C, 3-A, 4-D", "1-A, 2-B, 3-C, 4-D", "1-D, 2-C, 3-B, 4-A", "1-B, 2-A, 3-D, 4-C"], ans: 0, exp: "23=Packaging & Labelling, 24=Advertising, 28=Food Recall, 29=Enforcement." },
+    { id: 150, cat: "MATCH", src: "HPSC-STYLE", q: "Match FSO Operational Sections:\nList I: (1) Section 38 (2) Section 39 (3) Section 40 (4) Section 41\nList II: (A) Purchaser analysis (B) FSO powers (C) Search/seizure (D) FSO liability", options: ["1-B, 2-D, 3-A, 4-C", "1-A, 2-B, 3-C, 4-D", "1-D, 2-C, 3-B, 4-A", "1-B, 2-A, 3-D, 4-C"], ans: 0, exp: "38=FSO Powers, 39=FSO Liability/Penalty, 40=Purchaser analysis, 41=Search & seizure." },
+    { id: 151, cat: "MATCH", src: "HPSC-STYLE", q: "Match Penal Provisions:\nList I: (1) Section 59 (2) Section 60 (3) Section 61 (4) Section 62\nList II: (A) Unsafe food (B) Interference with seized items (C) False information (D) Obstructing/impersonating FSO", options: ["1-A, 2-B, 3-C, 4-D", "1-B, 2-A, 3-C, 4-D", "1-D, 2-C, 3-B, 4-A", "1-B, 2-A, 3-D, 4-C"], ans: 0, exp: "59=Unsafe food, 60=Interfering with seized food, 61=False info, 62=Obstructing FSO." },
+    { id: 152, cat: "MATCH", src: "HPSC-STYLE", q: "Match Governance & Administration Provisions:\nList I: (1) Section 83 (2) Section 84 (3) Section 89 (4) Section 96\nList II: (A) Override (B) Recovery of penalty (C) CAG audit (D) Annual report", options: ["1-C, 2-D, 3-A, 4-B", "1-A, 2-B, 3-C, 4-D", "1-D, 2-C, 3-B, 4-A", "1-B, 2-A, 3-D, 4-C"], ans: 0, exp: "83=CAG Audit, 84=Annual Report, 89=Overriding Effect, 96=Recovery as arrear of land revenue." },
+    { id: 153, cat: "MATCH", src: "HPSC-STYLE", q: "Match Authority with Primary Statutory Function:\nList I: (1) Commissioner (2) Designated Officer (3) FSO (4) Food Analyst\nList II: (A) District administration & licensing (B) State-level head (C) Laboratory analysis (D) Field sampling & inspection", options: ["1-B, 2-A, 3-D, 4-C", "1-A, 2-B, 3-C, 4-D", "1-D, 2-C, 3-B, 4-A", "1-B, 2-A, 3-D, 4-C"], ans: 0, exp: "CFS=State-level head, DO=District admin/licensing, FSO=Field sampling, Food Analyst=Lab testing." },
+    { id: 154, cat: "MATCH", src: "HPSC-STYLE", q: "Match Statutory Time Limits:\nList I: (1) 14 days (2) 7 days (3) 60 days (4) 45 days\nList II: (A) Special Court appeal (B) Food Analyst report (C) Tribunal to High Court appeal (D) Broken sample notification", options: ["1-B, 2-D, 3-C, 4-A", "1-A, 2-B, 3-C, 4-D", "1-D, 2-C, 3-B, 4-A", "1-B, 2-A, 3-D, 4-C"], ans: 0, exp: "14 days=Food Analyst report, 7 days=Broken sample notice, 60 days=Tribunal appeal, 45 days=Special Court appeal." },
+    { id: 155, cat: "MATCH", src: "HPSC-STYLE", q: "Match Numbers & Terms:\nList I: (1) 22 (2) 65 (3) 62 (4) 3\nList II: (A) Member age ceiling (B) Chairperson age ceiling (C) Food Authority members (D) Term in years", options: ["1-C, 2-B, 3-A, 4-D", "1-A, 2-B, 3-C, 4-D", "1-D, 2-C, 3-B, 4-A", "1-B, 2-A, 3-D, 4-C"], ans: 0, exp: "22=Members in FSSAI, 65=Chairperson age ceiling, 62=Member age ceiling, 3=Term of office in years." },
+
+    // 156 - 170 (Case-Based FSO Scenarios)
+    { id: 156, cat: "CASE", src: "HPSC-STYLE", q: "A food manufacturer learns that a distributed batch may be unsafe. The FBO wants to wait until the next routine inspection before acting. What should the FBO do under the Act?", options: ["Wait for FSO instructions", "Immediately inform competent authorities and initiate recall/withdrawal", "Destroy only internal records", "Continue selling until a court orders recall"], ans: 1, exp: "Section 28 places an affirmative duty on the FBO to immediately initiate recall and notify authorities." },
+    { id: 157, cat: "CASE", src: "HPSC-STYLE", q: "During field sampling, the food vendor angrily refuses to sign or affix a thumb impression on the sample slip. What is the mandatory statutory step for the FSO?", options: ["Discard the sample", "Call one or more witnesses and take their signatures", "Issue a licence", "Send the sample without documentation"], ans: 1, exp: "Section 47 explicitly provides that the FSO shall call one or more witnesses and obtain their signatures." },
+    { id: 158, cat: "CASE", src: "HPSC-STYLE", q: "Reports from the Food Analyst and an accredited laboratory regarding a sample are at variance. What is the next statutory analytical step?", options: ["Ignore the accredited lab", "Send a retained part to the Referral Food Laboratory", "Ask the seller to choose the result", "Repeat only the first test"], ans: 1, exp: "Section 47 mandates sending the retained part to the Referral Food Laboratory whose result is final." },
+    { id: 159, cat: "CASE", src: "HPSC-STYLE", q: "An FBO continues non-compliance even after expiration of the period specified in an Improvement Notice. What is the appropriate statutory escalation?", options: ["Nothing can happen", "Licence suspension and, after hearing, possible cancellation", "Automatic life imprisonment in every case", "Immediate tribunal appeal by the FSO"], ans: 1, exp: "Section 32 provides that failure to comply with an Improvement Notice leads to suspension and potential cancellation." },
+    { id: 160, cat: "CASE", src: "HPSC-STYLE", q: "A petty hawker is suspected of a minor contravention punishable only by a monetary penalty. Which speedy resolution route is statutorily available?", options: ["Compounding under Section 69", "Special Court trial only", "Referral laboratory", "Scientific Panel"], ans: 0, exp: "Section 69 allows specified petty operators to compound offences punishable only with fine up to ₹1 Lakh." },
+    { id: 161, cat: "CASE", src: "HPSC-STYLE", q: "A person imports sub-standard food contrary to the FSS Act and also violates customs regulations. Can FSS Act proceedings be barred because customs proceedings exist?", options: ["Yes, always", "No; Section 67 makes FSS Act liability additional to specified other-law penalties", "Yes, if the importer pays customs duty", "Only if the food is sub-standard"], ans: 1, exp: "Section 67 explicitly provides that penalties under the FSS Act are in addition to customs or foreign trade laws." },
+    { id: 162, cat: "CASE", src: "HPSC-STYLE", q: "A consumer purchases packed ghee and suspects it contains adulterants. What statutory route is specifically available to the consumer?", options: ["Section 40 purchaser analysis", "Section 70 tribunal appeal", "Section 83 CAG audit", "Section 91 rulemaking"], ans: 0, exp: "Section 40 gives any purchaser the legal right to have an article of food analysed by the Food Analyst." },
+    { id: 163, cat: "CASE", src: "HPSC-STYLE", q: "An FSO seizes an adulterant from a sweetmaker's kitchen. The sweetmaker claims it was not intended for food adulteration. Who bears the statutory legal burden?", options: ["Food Analyst", "The possessor from whom it was seized", "Commissioner", "Consumer"], ans: 1, exp: "Section 38(9) places the burden of proof squarely on the person from whose possession it was seized." },
+    { id: 164, cat: "CASE", src: "HPSC-STYLE", q: "An FSO intentionally makes a vexatious seizure of an FBO's goods without reasonable ground out of personal malice. What provision is attracted?", options: ["Section 39", "Section 49", "Section 59", "Section 69"], ans: 0, exp: "Section 39 penalizes an FSO who vexatiously or unreasonably seizes food with a penalty up to ₹1 Lakh." },
+    { id: 165, cat: "CASE", src: "HPSC-STYLE", q: "A dairy corporation commits an offence under the Act. Which section governs corporate liability and determines which directors are guilty?", options: ["Section 63", "Section 64", "Section 66", "Section 67"], ans: 2, exp: "Section 66 details offences by companies and assigns liability to in-charge officers and the corporate entity." },
+    { id: 166, cat: "CASE", src: "HPSC-STYLE", q: "A food safety contravention occurs for which no specific penalty is mentioned anywhere in the Act. Which provision serves as the statutory fallback?", options: ["Section 51", "Section 55", "Section 58", "Section 60"], ans: 2, exp: "Section 58 is the omnibus general penalty provision covering any unaddressed contravention (up to ₹2 Lakh)." },
+    { id: 167, cat: "CASE", src: "HPSC-STYLE", q: "Consumption of an unsafe food item causes grievous hurt / injury to a consumer. Which statutory punishment bracket applies under Section 59?", options: ["Up to 6 months + ₹1 Lakh", "Up to 1 year + ₹3 Lakh", "Up to 6 years + fine up to ₹5 Lakh", "7 years to life + ₹10 Lakh minimum"], ans: 2, exp: "Section 59(c) governs grievous injury: imprisonment up to six years and fine up to five lakh rupees." },
+    { id: 168, cat: "CASE", src: "HPSC-STYLE", q: "An Adjudicating Officer imposes a ₹3 Lakh penalty on an FBO for misbranding. Which appellate body hears the statutory appeal?", options: ["Referral Food Laboratory", "Food Safety Appellate Tribunal", "Scientific Committee", "Central Advisory Committee"], ans: 1, exp: "Section 70 establishes the Food Safety Appellate Tribunal to hear appeals from Adjudicating Officers." },
+    { id: 169, cat: "CASE", src: "HPSC-STYLE", q: "A vendor argues before the court: 'I honestly believed the food was compliant, so I am automatically protected.' What does Section 80 dictate?", options: ["Section 80 treats every mistaken belief as a defence", "Section 80 does not make mere mistaken reasonable belief a defence", "Belief always overrides the Act", "Only Section 89 matters"], ans: 1, exp: "Section 80 expressly excludes mere honest or mistaken belief from serving as an adequate statutory defence." },
+    { id: 170, cat: "CASE", src: "HPSC-STYLE", q: "An FBO fails to pay a penalty imposed by the Adjudicating Officer. What dual statutory recovery consequences follow under Section 96?", options: ["Nothing until a new prosecution", "Recovery as arrear of land revenue and licence suspension until payment", "Permanent licence renewal", "Automatic acquittal"], ans: 1, exp: "Section 96 provides both recovery as an arrear of land revenue and automatic suspension of licence." },
+
+    // 171 - 180 (Verified PYQs)
+    { id: 171, cat: "PYQ", src: "GPSC FSO Q146", q: "According to the Food Safety and Standards Act, 2006, which section includes the provision for 'Sampling and analysis'?", options: ["Section 42", "Section 45", "Section 46", "Section 47"], ans: 3, exp: "Section 47 is expressly titled 'Sampling and analysis'. (Verified GPSC Food Safety Officer PYQ)." },
+    { id: 172, cat: "PYQ", src: "GPSC FSO Q147", q: "According to the Food Safety and Standards Act, 2006, the Food Safety Officer is appointed under which section?", options: ["Section 36", "Section 37", "Section 38", "Section 39"], ans: 1, exp: "Section 37 governs the appointment of Food Safety Officers by the Commissioner. (Verified GPSC FSO PYQ)." },
+    { id: 173, cat: "PYQ", src: "GPSC FSO Q149", q: "Who is empowered under the Act to seize any article of food appearing to be in contravention?", options: ["Food Safety Officer", "Adjudicating Officer", "Designated Officer", "Food Analyst"], ans: 0, exp: "Section 38 explicitly confers field seizure powers on the Food Safety Officer. (Verified GPSC FSO PYQ)." },
+    { id: 174, cat: "PYQ", src: "GPSC FSO Q150", q: "Section 97 of the Food Safety and Standards Act, 2006 deals with:", options: ["Reward by State Government", "Recovery of penalty", "Repeal and savings", "Power to remove difficulties"], ans: 2, exp: "Section 97 repeals the Prevention of Food Adulteration Act and saved orders. (Verified GPSC FSO PYQ)." },
+    { id: 175, cat: "PYQ", src: "GPSC FSO Q151", q: "Unlicensed sale or carrying on of food business without required licence is punishable under Section 63 with:", options: ["Imprisonment up to 6 months", "Imprisonment up to 6 months and fine up to ₹5 Lakh", "Fine up to ₹2 Lakh", "Imprisonment up to 1 year and fine up to ₹10 Lakh"], ans: 1, exp: "Section 63 prescribes imprisonment up to 6 months and fine up to five lakh rupees. (Verified GPSC FSO PYQ)." },
+    { id: 176, cat: "PYQ", src: "FSSAI Asst 2022", q: "Who is in charge of the food safety machinery of the various States of India under the Act?", options: ["Adjudicating Officer", "State Minister of Health and Family Welfare", "Food Safety Officer", "Commissioner of Food Safety"], ans: 3, exp: "Section 30 establishes the Commissioner of Food Safety as the state head of food safety. (Verified FSSAI PYQ)." },
+    { id: 177, cat: "PYQ", src: "FSSAI Asst 2022", q: "The regulations governing the Food Safety Officer's functions are referenced under which provision of the FSS Regulations, 2011?", options: ["Subsection (6) of Section 47", "Subsection (4) of Section 15", "Subsection (4) of Section 28", "Subsection (5) of Section 29"], ans: 1, exp: "Referenced under subsection (4) of Section 15 of FSS Regulations, 2011. (Verified FSSAI Exam 2022)." },
+    { id: 178, cat: "PYQ", src: "JKSSB FSO 2025", q: "Which statement best identifies the principal Act that regulates food standards through FSSAI?", options: ["Food Safety and Standards Act, 2006", "Food Control and Regulation Act, 2001", "National Food Safety Act, 2010", "Food Quality Regulation Act, 2005"], ans: 0, exp: "The Food Safety and Standards Act, 2006 is the principal consolidating statute. (Verified JKSSB FSO PYQ)." },
+    { id: 179, cat: "PYQ", src: "JKSSB FSO 2025", q: "The Food Safety and Standards Act, 2006 is correctly described as:", options: ["An advisory framework without enforcement powers", "A statutory framework consolidating/replacing specified legacy food laws and orders", "A law limited only to packaged foods", "A law applicable only to imports"], ans: 1, exp: "It consolidates legacy orders (PFA 1954, FPO 1955, MMPO 1992, MFPO 1973) into a single unified statutory code. (Verified JKSSB FSO PYQ)." },
+    { id: 180, cat: "PYQ", src: "FSO Master Key", q: "Which section provides for Food Safety Officer powers such as seizure and related enforcement actions?", options: ["Section 37", "Section 38", "Section 40", "Section 47"], ans: 1, exp: "Section 38 is the primary provision enumerating Food Safety Officer field powers. (Verified FSO Exam Pattern)." }
+];
+</script>
+
+<script>
+/**
+ * Master State Controller & LocalStorage Persistence
+ */
+const App = {
+    mode: 'practice', // 'practice', 'exam', 'review'
+    activeCategory: 'ALL',
+    currentIndex: 0, // index in filteredQuestions
+    userAnswers: {}, // { [questionId]: selectedOptionIndex }
+    starredQuestions: new Set(),
+    filteredQuestions: [],
+    theme: 'dark',
+    examTimerInterval: null,
+    examSecondsRemaining: 180 * 60, // 3 hours for 180 questions
+
+    init() {
+        this.loadState();
+        this.applyTheme();
+        this.filterCategory('ALL');
+        this.updateStarredCounter();
+        this.setupKeyboardNav();
+    },
+
+    loadState() {
+        try {
+            const savedStars = localStorage.getItem('fss_fso_starred');
+            if (savedStars) {
+                this.starredQuestions = new Set(JSON.parse(savedStars));
+            }
+            const savedAnswers = localStorage.getItem('fss_fso_answers');
+            if (savedAnswers) {
+                this.userAnswers = JSON.parse(savedAnswers);
+            }
+            const savedTheme = localStorage.getItem('fss_fso_theme');
+            if (savedTheme) {
+                this.theme = savedTheme;
+            }
+        } catch (e) {
+            console.warn('Storage access fallback');
+        }
+    },
+
+    saveState() {
+        try {
+            localStorage.setItem('fss_fso_starred', JSON.stringify([...this.starredQuestions]));
+            localStorage.setItem('fss_fso_answers', JSON.stringify(this.userAnswers));
+            localStorage.setItem('fss_fso_theme', this.theme);
+        } catch (e) {}
+    },
+
+    toggleTheme() {
+        this.theme = this.theme === 'dark' ? 'light' : 'dark';
+        this.applyTheme();
+        this.saveState();
+    },
+
+    applyTheme() {
+        if (this.theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.getElementById('theme-icon').textContent = '☀️';
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+            document.getElementById('theme-icon').textContent = '🌙';
+        }
+    },
+
+    setMode(newMode) {
+        this.mode = newMode;
+        document.querySelectorAll('.segment-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`mode-${newMode}`).classList.add('active');
+
+        const timerWrap = document.getElementById('exam-timer-wrap');
+        const submitBtn = document.getElementById('submit-exam-btn');
+
+        if (newMode === 'exam') {
+            timerWrap.classList.remove('hidden');
+            submitBtn.classList.remove('hidden');
+            this.startExamTimer();
+        } else {
+            timerWrap.classList.add('hidden');
+            submitBtn.classList.add('hidden');
+            clearInterval(this.examTimerInterval);
+        }
+
+        if (newMode === 'review') {
+            this.filteredQuestions = QUESTION_DATABASE.filter(q => this.starredQuestions.has(q.id));
+            if (this.filteredQuestions.length === 0) {
+                alert("No starred questions yet! Mark questions with the star button (⭐) to review them in this mode.");
+                this.setMode('practice');
+                return;
+            }
+            this.currentIndex = 0;
+            this.renderQuestion();
+            this.renderPalette();
+            return;
+        }
+
+        this.filterCategory(this.activeCategory);
+    },
+
+    startExamTimer() {
+        clearInterval(this.examTimerInterval);
+        this.examTimerInterval = setInterval(() => {
+            this.examSecondsRemaining--;
+            if (this.examSecondsRemaining <= 0) {
+                clearInterval(this.examTimerInterval);
+                this.submitExam();
+            }
+            const mins = Math.floor(this.examSecondsRemaining / 60);
+            const secs = this.examSecondsRemaining % 60;
+            document.getElementById('exam-timer').textContent = 
+                `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }, 1000);
+    },
+
+    filterCategory(category) {
+        this.activeCategory = category;
+        document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        const activeBtn = Array.from(document.querySelectorAll('.pill-btn')).find(b => {
+            if (category === 'ALL') return b.textContent.includes('All');
+            if (category === 'MCQ') return b.textContent.includes('Sections');
+            if (category === 'AR') return b.textContent.includes('Assertion');
+            if (category === 'MATCH') return b.textContent.includes('Match');
+            if (category === 'CASE') return b.textContent.includes('Case');
+            if (category === 'PYQ') return b.textContent.includes('PYQ');
+            return false;
+        });
+        if (activeBtn) activeBtn.classList.add('active');
+
+        if (category === 'ALL') {
+            this.filteredQuestions = [...QUESTION_DATABASE];
+        } else {
+            this.filteredQuestions = QUESTION_DATABASE.filter(q => q.cat === category);
+        }
+
+        this.currentIndex = 0;
+        this.renderQuestion();
+        this.renderPalette();
+    },
+
+    getCurrentQuestion() {
+        return this.filteredQuestions[this.currentIndex] || this.filteredQuestions[0];
+    },
+
+    renderQuestion() {
+        const q = this.getCurrentQuestion();
+        if (!q) return;
+
+        // Tags and Headers
+        const catTag = document.getElementById('q-category-tag');
+        catTag.textContent = q.cat === 'MCQ' ? 'SECTION MCQ' :
+                             q.cat === 'AR' ? 'ASSERTION - REASON' :
+                             q.cat === 'MATCH' ? 'MATCH FOLLOWING' :
+                             q.cat === 'CASE' ? 'CASE SCENARIO' : 'VERIFIED PYQ';
+        catTag.className = `tag-badge tag-${q.cat.toLowerCase()}`;
+
+        document.getElementById('q-num-display').textContent = String(q.id).padStart(3, '0');
+        document.getElementById('q-total-display').textContent = QUESTION_DATABASE.length;
+        document.getElementById('q-source-tag').textContent = q.src;
+
+        // Starred state
+        const starBtn = document.getElementById('star-btn');
+        const starIcon = document.getElementById('star-icon');
+        if (this.starredQuestions.has(q.id)) {
+            starBtn.classList.add('starred');
+            starIcon.textContent = '★';
+            starBtn.innerHTML = `<span>★</span> Starred (Starred for 24h review)`;
+        } else {
+            starBtn.classList.remove('starred');
+            starIcon.textContent = '☆';
+            starBtn.innerHTML = `<span>☆</span> Star Question`;
+        }
+
+        // Question text
+        document.getElementById('q-text').textContent = q.q;
+
+        // Render options
+        const optsContainer = document.getElementById('options-container');
+        optsContainer.innerHTML = '';
+        const selectedOpt = this.userAnswers[q.id];
+        const isAnswered = selectedOpt !== undefined;
+
+        q.options.forEach((optText, idx) => {
+            const letter = String.fromCharCode(65 + idx); // A, B, C, D
+            const optDiv = document.createElement('div');
+            optDiv.className = 'option-item';
+
+            if (selectedOpt === idx) {
+                optDiv.classList.add('selected');
+            }
+
+            // In Practice Mode, immediately reveal correct/wrong
+            if (this.mode === 'practice' && isAnswered) {
+                optDiv.classList.add('locked');
+                if (idx === q.ans) {
+                    optDiv.classList.add('correct');
+                } else if (selectedOpt === idx) {
+                    optDiv.classList.add('incorrect');
+                }
+            }
+
+            optDiv.onclick = () => this.selectOption(idx);
+
+            optDiv.innerHTML = `
+                <div class="option-letter">${letter}</div>
+                <div style="flex: 1;">${optText}</div>
+            `;
+            optsContainer.appendChild(optDiv);
+        });
+
+        // Explanation (Practice Mode)
+        const expContainer = document.getElementById('explanation-container');
+        const expBox = document.getElementById('explanation-box');
+        const expText = document.getElementById('explanation-text');
+
+        if (this.mode === 'practice' && isAnswered) {
+            expContainer.classList.remove('hidden');
+            expText.textContent = q.exp;
+            if (selectedOpt === q.ans) {
+                expBox.className = 'explanation-box correct';
+            } else {
+                expBox.className = 'explanation-box incorrect';
+            }
+        } else {
+            expContainer.classList.add('hidden');
+        }
+
+        // Navigation button states
+        document.getElementById('prev-btn').disabled = this.currentIndex === 0;
+        document.getElementById('next-btn').disabled = this.currentIndex === this.filteredQuestions.length - 1;
+
+        // Update progress bar
+        const progressPercent = ((this.currentIndex + 1) / this.filteredQuestions.length) * 100;
+        document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+        this.updateStats();
+    },
+
+    selectOption(optIdx) {
+        const q = this.getCurrentQuestion();
+        this.userAnswers[q.id] = optIdx;
+        this.saveState();
+        this.renderQuestion();
+        this.renderPalette();
+    },
+
+    clearAnswer() {
+        const q = this.getCurrentQuestion();
+        delete this.userAnswers[q.id];
+        this.saveState();
+        this.renderQuestion();
+        this.renderPalette();
+    },
+
+    prevQuestion() {
+        if (this.currentIndex > 0) {
+            this.currentIndex--;
+            this.renderQuestion();
+            this.renderPalette();
+        }
+    },
+
+    nextQuestion() {
+        if (this.currentIndex < this.filteredQuestions.length - 1) {
+            this.currentIndex++;
+            this.renderQuestion();
+            this.renderPalette();
+        }
+    },
+
+    jumpTo(index) {
+        if (index >= 0 && index < this.filteredQuestions.length) {
+            this.currentIndex = index;
+            this.renderQuestion();
+            this.renderPalette();
+        }
+    },
+
+    toggleStarCurrent() {
+        const q = this.getCurrentQuestion();
+        if (this.starredQuestions.has(q.id)) {
+            this.starredQuestions.delete(q.id);
+        } else {
+            this.starredQuestions.add(q.id);
+        }
+        this.saveState();
+        this.renderQuestion();
+        this.renderPalette();
+        this.updateStarredCounter();
+    },
+
+    updateStarredCounter() {
+        document.getElementById('starred-count').textContent = this.starredQuestions.size;
+    },
+
+    renderPalette() {
+        const grid = document.getElementById('palette-grid');
+        grid.innerHTML = '';
+
+        this.filteredQuestions.forEach((q, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'palette-btn';
+            btn.textContent = String(q.id).padStart(3, '0');
+
+            if (idx === this.currentIndex) btn.classList.add('current');
+            if (this.starredQuestions.has(q.id)) btn.classList.add('starred');
+
+            const ans = this.userAnswers[q.id];
+            if (ans !== undefined) {
+                if (this.mode === 'practice') {
+                    if (ans === q.ans) btn.classList.add('correct-eval');
+                    else btn.classList.add('incorrect-eval');
+                } else {
+                    btn.classList.add('answered');
+                }
+            }
+
+            btn.onclick = () => this.jumpTo(idx);
+            grid.appendChild(btn);
+        });
+
+        document.getElementById('palette-filter-label').textContent = 
+            `${this.activeCategory} (${this.filteredQuestions.length})`;
+    },
+
+    updateStats() {
+        let answeredCount = 0;
+        this.filteredQuestions.forEach(q => {
+            if (this.userAnswers[q.id] !== undefined) answeredCount++;
+        });
+
+        document.getElementById('stat-answered').textContent = answeredCount;
+        document.getElementById('stat-starred').textContent = this.starredQuestions.size;
+        document.getElementById('stat-remaining').textContent = 
+            Math.max(0, this.filteredQuestions.length - answeredCount);
+    },
+
+    submitExam() {
+        clearInterval(this.examTimerInterval);
+
+        let total = QUESTION_DATABASE.length;
+        let correct = 0;
+        let attempted = 0;
+
+        const catStats = {
+            MCQ: { name: 'Sections 1-101 MCQs', total: 0, correct: 0 },
+            AR: { name: 'Assertion - Reason', total: 0, correct: 0 },
+            MATCH: { name: 'Match The Following', total: 0, correct: 0 },
+            CASE: { name: 'Case-Based Scenarios', total: 0, correct: 0 },
+            PYQ: { name: 'Verified PYQs', total: 0, correct: 0 }
+        };
+
+        QUESTION_DATABASE.forEach(q => {
+            catStats[q.cat].total++;
+            if (this.userAnswers[q.id] !== undefined) {
+                attempted++;
+                if (this.userAnswers[q.id] === q.ans) {
+                    correct++;
+                    catStats[q.cat].correct++;
+                }
+            }
+        });
+
+        const percent = Math.round((correct / total) * 100);
+
+        // Populate Scorecard
+        document.getElementById('final-score').textContent = `${correct} / ${total}`;
+        document.getElementById('final-accuracy').textContent = `${percent}% Statutory Mastery`;
+
+        let recText = "Target >=90% in MCQs and >=80% in Assertion/Case scenarios before moving to Rules/Regulations layer.";
+        if (percent >= 90) {
+            recText = "Outstanding performance! You have high-level precision on FSS Act sections, penalties, and FSO procedures.";
+        } else if (percent >= 75) {
+            recText = "Strong foundation! Use the Trap Sheet to master Section 50-63 penalties and Section 33 vs 34 / 36-38 differences.";
+        }
+        document.getElementById('final-recommendation').textContent = recText;
+
+        // Render breakdown cards
+        const container = document.getElementById('category-breakdown-container');
+        container.innerHTML = '';
+        Object.values(catStats).forEach(c => {
+            const card = document.createElement('div');
+            card.className = 'breakdown-card';
+            const catPct = c.total > 0 ? Math.round((c.correct / c.total) * 100) : 0;
+            card.innerHTML = `
+                <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">${c.name}</div>
+                <div style="font-size:1.4rem; font-weight:800; color:var(--text-main);">${c.correct} / ${c.total}</div>
+                <div style="font-size:0.8rem; font-weight:600; color:${catPct >= 80 ? 'var(--success)' : 'var(--warning)'};">${catPct}% Accuracy</div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Switch to scorecard view
+        document.getElementById('quiz-view').style.display = 'none';
+        document.getElementById('scorecard-view').style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+
+    retakeExam() {
+        this.userAnswers = {};
+        this.saveState();
+        this.examSecondsRemaining = 180 * 60;
+        document.getElementById('scorecard-view').style.display = 'none';
+        document.getElementById('quiz-view').style.display = 'grid';
+        this.setMode('exam');
+    },
+
+    reviewWrongAnswers() {
+        // Filter questions answered incorrectly
+        this.filteredQuestions = QUESTION_DATABASE.filter(q => {
+            const ans = this.userAnswers[q.id];
+            return ans !== undefined && ans !== q.ans;
+        });
+
+        if (this.filteredQuestions.length === 0) {
+            alert("No incorrect answers to review! Either you scored 100% or skipped questions.");
+            this.filteredQuestions = [...QUESTION_DATABASE];
+        }
+
+        document.getElementById('scorecard-view').style.display = 'none';
+        document.getElementById('quiz-view').style.display = 'grid';
+        this.currentIndex = 0;
+        this.setMode('practice');
+        this.renderQuestion();
+        this.renderPalette();
+    },
+
+    setView(viewName) {
+        if (viewName === 'quiz') {
+            document.getElementById('scorecard-view').style.display = 'none';
+            document.getElementById('quiz-view').style.display = 'grid';
+        }
+    },
+
+    openTrapSheet() {
+        document.getElementById('trap-modal').classList.add('active');
+    },
+
+    closeTrapSheet() {
+        document.getElementById('trap-modal').classList.remove('active');
+    },
+
+    setupKeyboardNav() {
+        window.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.key === 'ArrowRight') this.nextQuestion();
+            if (e.key === 'ArrowLeft') this.prevQuestion();
+            if (['1', '2', '3', '4'].includes(e.key)) {
+                this.selectOption(parseInt(e.key, 10) - 1);
+            }
+            if (['a', 'b', 'c', 'd', 'A', 'B', 'C', 'D'].includes(e.key)) {
+                const map = { a: 0, b: 1, c: 2, d: 3 };
+                this.selectOption(map[e.key.toLowerCase()]);
+            }
+            if (e.key.toLowerCase() === 'm' || e.key.toLowerCase() === 's') {
+                this.toggleStarCurrent();
+            }
+        });
+    }
+};
+
+window.addEventListener('DOMContentLoaded', () => {
+    App.init();
+});
+</script>
+</body>
+</html>
